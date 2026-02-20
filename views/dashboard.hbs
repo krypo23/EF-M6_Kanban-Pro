@@ -1,0 +1,41 @@
+<div class="row mb-4">
+    <div class="col">
+        <h1 class="display-6 fw-bold">{{tablero.nombreTablero}}</h1>
+        <p class="text-muted">Agrega nuevas tareas a cada lista.</p>
+    </div>
+</div>
+
+<div class="row align-items-start flex-nowrap overflow-auto pb-4">
+    
+    {{#each tablero.listas}}
+        <div class="col-12 col-md-4 col-lg-3">
+            <div class="card shadow-sm border-0 bg-body-tertiary">
+                
+                <div class="card-header {{this.tema}} fw-bold rounded-top">
+                    {{this.titulo}}
+                </div>
+                
+                <div class="card-body p-2">
+                    <ul class="list-group list-group-flush mb-3 rounded">
+                        {{#each this.tarjetas}}
+                            <li class="list-group-item border shadow-sm mb-2 rounded bg-white">
+                                {{this.texto}}
+                            </li>
+                        {{/each}}
+                    </ul>
+
+                    <form action="/nueva-tarjeta" method="POST">
+                        <input type="hidden" name="listaId" value="{{this.id}}">
+                        
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="texto" class="form-control" placeholder="Añadir tarea..." required>
+                            <button class="btn btn-primary" type="submit">+</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    {{/each}}
+
+</div>

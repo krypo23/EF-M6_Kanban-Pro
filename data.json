@@ -1,0 +1,47 @@
+{
+  "nombreTablero": "Proyecto KanbanPro",
+  "listas": [
+    {
+      "id": "lista-1",
+      "titulo": "Por Hacer",
+      "tema": "text-bg-primary",
+      "tarjetas": [
+        {
+          "id": 1771531905316,
+          "texto": "tarea x"
+        },
+        {
+          "id": 1771532340837,
+          "texto": "tarea 2"
+        }
+      ]
+    },
+    {
+      "id": "lista-2",
+      "titulo": "En Progreso",
+      "tema": "text-bg-warning",
+      "tarjetas": [
+  
+        {
+          "id": 1771534420539,
+          "texto": "vamos haciendo"
+        }
+      ]
+    },
+    {
+      "id": "lista-3",
+      "titulo": "Completado",
+      "tema": "text-bg-success",
+      "tarjetas": [
+        {
+          "id": 1771532376502,
+          "texto": "tarea completada"
+        },
+        {
+          "id": 1771533628977,
+          "texto": "EF-M6 Listo, ahi vamos"
+        }
+      ]
+    }
+  ]
+}
