@@ -13,6 +13,10 @@
         {
           "id": 1771532340837,
           "texto": "tarea 2"
+        },
+        {
+          "id": 1773409156345,
+          "texto": "comer "
         }
       ]
     },
@@ -21,10 +25,13 @@
       "titulo": "En Progreso",
       "tema": "text-bg-warning",
       "tarjetas": [
-  
         {
           "id": 1771534420539,
           "texto": "vamos haciendo"
+        },
+        {
+          "id": 1773409163492,
+          "texto": "jugar"
         }
       ]
     },
@@ -40,6 +47,10 @@
         {
           "id": 1771533628977,
           "texto": "EF-M6 Listo, ahi vamos"
+        },
+        {
+          "id": 1773409171508,
+          "texto": "mirar tv"
         }
       ]
     }
