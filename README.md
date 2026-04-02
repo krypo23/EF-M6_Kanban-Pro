@@ -1,5 +1,7 @@
 # KanbanPro - Gestor de Proyectos (MVP)
 
+![Portfolio Preview](./assets/kanbanPro.png)
+
 KanbanPro es una aplicación web Fullstack construida con Node.js, Express, Sequelize y PostgreSQL. Permite a los usuarios registrarse, iniciar sesión de forma segura usando JWT, y gestionar tableros, listas y tareas.
 
 ## 🚀 Tecnologías Utilizadas
