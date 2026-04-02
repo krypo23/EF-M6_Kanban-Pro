@@ -6,69 +6,81 @@ const poblarBaseDeDatos = async () => {
 
         const usuario1 = await Usuario.create({
             nombre: 'pedrito',
-            email:'pedro@email.cl'
+            email:'pedro@email.cl',
+            password: 'password123'
         });
 
         const usuario2 = await Usuario.create({
             nombre: 'luchito',
-            email:'luis@email.cl'
+            email:'luis@email.cl',
+            password: 'password123'
+        });
+        const usuario3 = await Usuario.create({
+            nombre: 'juanito',
+            email:'juan@email.cl',
+            password: 'password123'
         });
         console.log('Usuarios creados con éxito');
 
+        // ¡OJO ACÁ! Cambiamos a UsuarioId (con U mayúscula)
         const tablero1 = await Tablero.create({
             nombre: 'tablero1',
             numero: 1,
-            usuarioId: usuario1.id
+            UsuarioId: usuario1.id 
         });
         const tablero2 = await Tablero.create({
             nombre: 'tablero2',
             numero: 2,
-            usuarioId: usuario2.id
+            UsuarioId: usuario2.id
         });
         const tablero3 = await Tablero.create({
             nombre: 'tablero3',
             numero: 3,
-            usuarioId: usuario1.id
+            UsuarioId: usuario1.id
         });
         console.log('Tableros creados con éxito');
+
+        // ¡OJO ACÁ! Cambiamos a TableroId (con T mayúscula)
         const lista1 = await Lista.create({
             nombre: 'lista 1',
             numero: 1,
-            tableroId: tablero1.id
+            TableroId: tablero1.id 
         });
 
         const lista2 = await Lista.create({
             nombre: 'lista 2',
             numero: 2,
-            tableroId: tablero2.id
+            TableroId: tablero2.id 
         });
 
         const lista3 = await Lista.create({
             nombre: 'lista 3',
             numero: 3,
-            tableroId: tablero3.id
+            TableroId: tablero3.id 
         });
 
+        // ¡OJO ACÁ! Sequelize y su latín: ListumId
         await Tarjeta.create({
             nombre: 'Aprender JS',
             numero: 1,
-            listaId: lista1.id
+            ListumId: lista1.id 
         });
         await Tarjeta.create({
             nombre: 'Aprender ZOD',
             numero: 2,
-            listaId: lista2.id
+            ListumId: lista2.id 
         });
         await Tarjeta.create({
             nombre: 'aprender Sequelizex',
             numero: 3,
-            listaId: lista3.id
+            ListumId: lista3.id 
         });
-        console.log('Listas creadas con éxito');
+        console.log('Listas y Tarjetas creadas con relaciones perfectas ✅');
+
     } catch (error) {
         console.error('Error al poblar la base de datos:', error);
-    }finally {
-        await  sequelize.close();
+    } finally {
+        await sequelize.close();
     }
 };
 

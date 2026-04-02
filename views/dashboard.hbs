@@ -1,41 +1,130 @@
-<div class="row mb-4">
-    <div class="col">
-        <h1 class="display-6 fw-bold">{{tablero.nombreTablero}}</h1>
-        <p class="text-muted">Agrega nuevas tareas a cada lista.</p>
-    </div>
-</div>
-
-<div class="row align-items-start flex-nowrap overflow-auto pb-4">
-    
-    {{#each tablero.listas}}
-        <div class="col-12 col-md-4 col-lg-3">
-            <div class="card shadow-sm border-0 bg-body-tertiary">
-                
-                <div class="card-header {{this.tema}} fw-bold rounded-top">
-                    {{this.titulo}}
-                </div>
-                
-                <div class="card-body p-2">
-                    <ul class="list-group list-group-flush mb-3 rounded">
-                        {{#each this.tarjetas}}
-                            <li class="list-group-item border shadow-sm mb-2 rounded bg-white">
-                                {{this.texto}}
-                            </li>
-                        {{/each}}
-                    </ul>
-
-                    <form action="/nueva-tarjeta" method="POST">
-                        <input type="hidden" name="listaId" value="{{this.id}}">
-                        
-                        <div class="input-group input-group-sm">
-                            <input type="text" name="texto" class="form-control" placeholder="Añadir tarea..." required>
-                            <button class="btn btn-primary" type="submit">+</button>
-                        </div>
-                    </form>
-                </div>
-
+<!-- CAJA DEL USUARIO Y LOGOUT -->
+            <div class="d-flex align-items-center bg-white border rounded-pill px-3 py-1 shadow-sm ms-auto">
+                <span class="text-secondary fw-bold me-3">👤 Hola, <span class="text-dark text-capitalize">{{nombreUsuario}}</span></span>
+                <a href="/logout" class="btn btn-sm btn-outline-danger rounded-pill fw-bold ms-auto">Salir</a>
             </div>
-        </div>
-    {{/each}}
 
+<div class="container-fluid py-4">
+
+    <!-- ENCABEZADO, CREAR TABLERO Y CERRAR SESIÓN -->
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-4">
+            <h1 class="display-5 fw-bold">Mis Tableros</h1> 
+        </div>
+
+    </div>
+    <div class="col-md-8 text-md-end mt-3 mt-md-0 d-flex flex-wrap justify-content-start align-items-end gap-3">
+        <form action="/nuevo-tablero" method="POST" class="d-inline-flex gap-2 mb-0">
+            <input type="text" name="nombre" class="form-control ali" placeholder="Nombre del nuevo tablero..." required>
+            <button type="submit" class="btn btn-success text-nowrap fw-bold">+ Crear Tablero</button>
+        </form>
+        <!-- BOTÓN CERRAR SESIÓN AÑADIDO AQUÍ -->
+
+
+    </div>
+    <!-- ZONA DE TABLEROS (Ahora en formato vertical / hacia abajo) -->
+    <div class="d-flex flex-column gap-4 pb-4">
+        
+        {{#each tableros}}
+            <!-- TABLERO INDIVIDUAL (Ocupa todo el ancho disponible) -->
+            <div class="w-100"> 
+                
+                <div class="p-3 bg-light rounded-3 border shadow-sm">
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                        <h2 class="h4 fw-bold mb-0 text-dark">{{this.nombreTablero}}</h2>
+                    </div>
+
+                    <!-- ZONA DE LISTAS (Las listas se mantienen hacia el lado dentro de su tablero) -->
+                    <div class="d-flex align-items-start flex-nowrap overflow-auto gap-3 pb-2">
+                        
+                        <!-- RENDERIZAR LISTAS EXISTENTES -->
+                        {{#each this.listas}}
+                            <div style="width: 300px; flex-shrink: 0;">
+                                <div class="card shadow-sm border-0 bg-body-tertiary">
+                                    
+                                    <div class="card-header {{this.tema}} fw-bold rounded-top">
+                                        {{this.titulo}}
+                                    </div>
+                                    
+                                    <div class="card-body p-2">
+                                        <ul class="list-group list-group-flush mb-3 rounded">
+                                            {{#each this.tarjetas}}
+                                    <li class="list-group-item border shadow-sm mb-2 rounded bg-white d-flex align-items-center">
+                                        <!-- El Checkbox -->
+                                        <input class="form-check-input me-2 checkbox-tarea" type="checkbox" style="cursor: pointer;">
+                                        <!-- El Texto de la tarea -->
+                                        <span class="texto-tarea">{{this.texto}}</span>
+                                    </li>
+                                            {{/each}}
+                                        </ul>
+
+                                        <form action="/nueva-tarjeta" method="POST">
+                                            <input type="hidden" name="listaId" value="{{this.id}}">
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" name="texto" class="form-control" placeholder="Añadir tarea..." required>
+                                                <button class="btn btn-primary" type="submit">+</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {{/each}}
+                        
+                        <!-- BOTÓN CREAR NUEVA LISTA -->
+                        <div style="width: 300px; flex-shrink: 0;">
+                            <div class="card border-dashed bg-transparent shadow-none" style="border: 2px dashed #ccc;">
+                                <div class="card-body p-2">
+                                    <form action="/nueva-lista" method="POST">
+                                        <!-- Usamos el id real del tablero para la BD -->
+                                        <input type="hidden" name="tableroId" value="{{this.id}}">
+                                        <div class="input-group">
+                                            <input type="text" name="nombre" class="form-control form-control-sm border-secondary" placeholder="Nueva lista..." required>
+                                            <button class="btn btn-outline-secondary btn-sm" type="submit">+ Lista</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+                </div> 
+            </div> 
+        {{else}}   
+        {{!-- {{/each}}
+
+        <!-- SI NO HAY TABLEROS -->
+        {{ tableros}} --}}
+            <div class="alert alert-info shadow-sm w-100" role="alert">
+                Aún no tienes tableros. ¡Usa el botón de arriba para crear tu primer proyecto!
+            </div>
+        {{/each}}
+
+    </div> 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Buscamos todos los checkboxes de las tareas
+        const checkboxes = document.querySelectorAll('.checkbox-tarea');
+
+        checkboxes.forEach(chk => {
+            chk.addEventListener('change', function() {
+                // Buscamos el texto que está justo al lado del checkbox que se tocó
+                const textoSpan = this.nextElementSibling; 
+
+                if(this.checked) {
+                    // Si está marcado: tachado y color gris
+                    textoSpan.style.textDecoration = 'line-through';
+                    textoSpan.style.color = '#adb5bd'; 
+                    textoSpan.style.transition = 'all 0.3s ease'; // Animación suave
+                } else {
+                    // Si se desmarca: vuelve a la normalidad
+                    textoSpan.style.textDecoration = 'none';
+                    textoSpan.style.color = 'inherit';
+                }
+            });
+        });
+    });
+</script>
